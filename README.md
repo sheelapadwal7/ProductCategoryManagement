@@ -40,8 +40,3 @@ This Spring Boot application provides RESTful APIs for managing categories and p
 - Maven installed on your machine
 - MySQL installed on your machine 
 
-### Setup
-
-1. **Clone the repository**:
-
-   git clone https://github.com/your-username/category-product-management.git
