@@ -7,33 +7,45 @@ import com.example.demo.model.Category;
 import com.example.demo.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
 
-	@Autowired
-	private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-	public List<Category> getAllCategories() {
-		return categoryRepository.findAll();
-	}
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
 
-	public Category createCategory(Category category) {
-		return categoryRepository.save(category);
-	}
+    public Category createCategory(Category category) {
+        return categoryRepository.save(category);
+    }
 
-	public Category getCategoryById(Integer id) {
-		return categoryRepository.findById(id).get();
-	}
+    public Category getCategoryById(Integer id) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        return categoryOptional.orElse(null);
+    }
 
-	public Category updateCategory(Integer id, Category category) {
-		Category existingCategory = categoryRepository.findById(id).get();
-		existingCategory.setName(category.getName());
-		return categoryRepository.save(existingCategory);
-	}
+    public boolean updateCategory(Integer id, Category category) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isPresent()) {
+            Category existingCategory = categoryOptional.get();
+            existingCategory.setName(category.getName());
+            categoryRepository.save(existingCategory);
+            return true;
+        }
+        return false;
+    }
 
-	public void deleteCategory(Integer id) {
-		Category category = categoryRepository.findById(id).get();
-		categoryRepository.delete(category);
-	}
+    public boolean deleteCategory(Integer id) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            categoryRepository.delete(category);
+            return true;
+        }
+        return false;
+    }
 }

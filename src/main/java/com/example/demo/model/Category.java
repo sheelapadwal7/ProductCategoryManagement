@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
-
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,21 +13,19 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="category")
+@Table(name = "category")
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    private String name;
+	@Column(name="name")
+	private String name;
 
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
-
-	
+	@JsonIgnore
+	@OneToMany(mappedBy = "category")
+	private List<Product> products;
 
 	public Integer getId() {
 		return id;
@@ -54,6 +51,4 @@ public class Category {
 		this.products = products;
 	}
 
-    
 }
-

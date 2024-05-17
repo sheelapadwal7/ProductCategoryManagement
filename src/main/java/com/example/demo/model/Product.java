@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
-
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,22 +10,22 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    private String name;
-
-    private double price;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
-
+	@Column(name="name")
+	private String name;
 	
+	@Column(name="price")
+	private double price;
+
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 
 	public Integer getId() {
 		return id;
@@ -60,5 +59,4 @@ public class Product {
 		this.category = category;
 	}
 
-    
 }
